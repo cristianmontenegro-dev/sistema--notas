@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Notas</title>
+  <meta name="description" content="Registra las notas de tus estudiantes, calcula su desempeño y el promedio del grupo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1" aria-hidden="true"></div>
+  <div class="bg-orb orb-2" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="container">
+      <span class="eyebrow">Panel académico</span>
+      <h1>Sistema de <span class="gradient-text">Notas</span></h1>
+      <p class="subtitle">Registra a tus estudiantes, obtén su desempeño al instante y revisa el promedio general del grupo.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Estadísticas -->
+    <section class="stats" aria-label="Resumen del grupo">
+      <article class="stat-card">
+        <span class="stat-icon" aria-hidden="true">👥</span>
+        <div>
+          <p class="stat-label">Estudiantes</p>
+          <p class="stat-value" id="statTotal">0</p>
+        </div>
+      </article>
+      <article class="stat-card highlight">
+        <span class="stat-icon" aria-hidden="true">📊</span>
+        <div>
+          <p class="stat-label">Promedio general</p>
+          <p class="stat-value" id="statPromedio">—</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon" aria-hidden="true">🏆</span>
+        <div>
+          <p class="stat-label">Nota más alta</p>
+          <p class="stat-value" id="statMax">—</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon" aria-hidden="true">📉</span>
+        <div>
+          <p class="stat-label">Nota más baja</p>
+          <p class="stat-value" id="statMin">—</p>
+        </div>
+      </article>
+    </section>
+
+    <div class="layout">
+      <!-- Formulario -->
+      <aside class="card form-card">
+        <h2>Nuevo registro</h2>
+        <p class="card-hint">La nota debe estar entre 0.0 y 5.0.</p>
+
+        <form id="formNota" novalidate>
+          <div class="field">
+            <label for="nombre">Nombre del estudiante</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: María Fernanda López" autocomplete="off" maxlength="60" required />
+          </div>
+
+          <div class="field">
+            <label for="nota">Nota</label>
+            <input type="number" id="nota" name="nota" placeholder="Ej: 4.2" step="0.1" min="0" max="5" inputmode="decimal" required />
+          </div>
+
+          <div class="preview" id="preview" aria-live="polite">
+            <span class="preview-label">Desempeño</span>
+            <span class="badge badge-empty" id="previewBadge">Sin nota</span>
+          </div>
+
+          <p class="error" id="error" role="alert" hidden></p>
+
+          <button type="submit" class="btn btn-primary">Registrar estudiante</button>
+        </form>
+
+        <div class="scale">
+          <h3>Escala de desempeño</h3>
+          <ul>
+            <li><span class="badge badge-superior">Superior</span><span>4.8 – 5.0</span></li>
+            <li><span class="badge badge-alto">Alto</span><span>4.0 – 4.7</span></li>
+            <li><span class="badge badge-regular">Regular</span><span>3.5 – 3.9</span></li>
+            <li><span class="badge badge-bajo">Bajo</span><span>3.0 – 3.4</span></li>
+            <li><span class="badge badge-perdio">Perdió el año</span><span>0.0 – 2.9</span></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Resultados -->
+      <section class="card results-card">
+        <div class="results-head">
+          <div>
+            <h2>Resumen de estudiantes</h2>
+            <p class="card-hint" id="resumenTexto">Aún no hay registros.</p>
+          </div>
+          <button type="button" class="btn btn-ghost" id="btnLimpiar" hidden>Limpiar todo</button>
+        </div>
+
+        <div class="empty" id="empty">
+          <div class="empty-art" aria-hidden="true">📝</div>
+          <p>Todavía no has registrado a nadie.</p>
+          <p class="muted">Completa el formulario para agregar al primer estudiante.</p>
+        </div>
+
+        <div class="table-wrap" id="tableWrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Estudiante</th>
+                <th>Nota</th>
+                <th>Desempeño</th>
+                <th><span class="sr-only">Acciones</span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="distribution" id="distribution" hidden>
+          <h3>Distribución del grupo</h3>
+          <div id="distBars"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Sistema de Notas · Hecho con HTML, CSS y JavaScript</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
